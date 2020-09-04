@@ -1,0 +1,47 @@
+package pro.appcraft.lib.utils.common
+
+import android.content.Context
+import android.graphics.Point
+import android.util.DisplayMetrics
+import android.util.TypedValue
+import android.view.WindowManager
+
+fun Context.convertDpToPx(value: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        value,
+        resources.displayMetrics
+    )
+}
+
+fun Context.convertPxToDp(value: Float): Float {
+    return value * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+}
+
+fun Context.convertMmToPx(value: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_MM,
+        value,
+        resources.displayMetrics
+    )
+}
+
+fun Context.convertPxToMm(value: Float): Float {
+    return value / (resources.displayMetrics.xdpi * (1.0f / 25.4f))
+}
+
+fun Context.getDeviceWidth(): Int {
+    return getDeviceSize(this).x
+}
+
+fun Context.getDeviceHeight(): Int {
+    return getDeviceSize(this).y
+}
+
+fun getDeviceSize(context: Context): Point {
+    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    val display = windowManager.defaultDisplay
+    val size = Point()
+    display.getSize(size)
+    return size
+}
