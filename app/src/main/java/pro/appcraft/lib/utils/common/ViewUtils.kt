@@ -9,9 +9,9 @@ fun View?.setVisible() {
     }
 }
 
-fun View?.setVisible(isVisibly: Boolean) {
+fun View?.setVisible(isVisible: Boolean) {
     this?.let {
-        it.visibility = if (isVisibly) View.VISIBLE else View.GONE
+        it.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }
 
@@ -27,11 +27,11 @@ fun View?.setGone() {
     }
 }
 
-fun View?.updateMargins(l: Int = 0, t: Int = 0, r: Int = 0, b: Int = 0) {
+fun View?.updateMargins(left: Int = 0, top: Int = 0, right: Int = 0, bottom: Int = 0) {
     this?.let {
         if (layoutParams is ViewGroup.MarginLayoutParams) {
-            val p = layoutParams as ViewGroup.MarginLayoutParams
-            p.setMargins(l, t, r, b)
+            val marginLayoutParams = layoutParams as ViewGroup.MarginLayoutParams
+            marginLayoutParams.setMargins(left, top, right, bottom)
             requestLayout()
         }
     }

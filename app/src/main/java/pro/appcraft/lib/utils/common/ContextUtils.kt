@@ -31,15 +31,15 @@ fun Context.convertPxToMm(value: Float): Float {
 }
 
 fun Context.getDeviceWidth(): Int {
-    return getDeviceSize(this).x
+    return getDeviceSize().x
 }
 
 fun Context.getDeviceHeight(): Int {
-    return getDeviceSize(this).y
+    return getDeviceSize().y
 }
 
-fun getDeviceSize(context: Context): Point {
-    val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+fun Context.getDeviceSize(): Point {
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val display = windowManager.defaultDisplay
     val size = Point()
     display.getSize(size)
