@@ -7,7 +7,6 @@ import kotlin.system.exitProcess
 fun Activity.restartApp() {
     val intent = Intent(this, this::class.java)
     val restartIntent = Intent.makeRestartActivityTask(intent.component)
-    this.startActivity(restartIntent)
+    startActivity(restartIntent)
     exitProcess(0)
 }
-
