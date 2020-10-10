@@ -10,7 +10,7 @@ fun Context.getVideoFileDuration(file: File): Long? = try {
     retriever.setDataSource(this, Uri.fromFile(file))
     val time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
     retriever.release()
-    time.toLongOrNull()
+    time?.toLongOrNull()
 } catch (ignored: Exception) {
     null
 }
