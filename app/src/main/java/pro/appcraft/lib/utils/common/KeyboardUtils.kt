@@ -20,16 +20,19 @@ fun Activity?.hideKeyboard(view: View) {
     imm?.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-fun Fragment?.toggleKeyboard() = this?.activity.toggleKeyboard()
+fun Fragment?.toggleKeyboard(forced: Boolean = false) = this?.activity.toggleKeyboard(forced)
 
-fun Activity?.toggleKeyboard() {
+fun Activity?.toggleKeyboard(forced: Boolean = false) {
     val imm = this?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-    imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+    imm?.toggleSoftInput(
+        if (forced) InputMethodManager.SHOW_FORCED else InputMethodManager.SHOW_IMPLICIT,
+        0
+    )
 }
 
-fun Fragment?.showKeyboard() = this?.activity.showKeyboard()
+fun Fragment?.showKeyboard(forced: Boolean = false) = this?.activity.showKeyboard(forced)
 
-fun Activity?.showKeyboard() {
+fun Activity?.showKeyboard(forced: Boolean = false) {
     hideKeyboard()
-    toggleKeyboard()
+    toggleKeyboard(forced)
 }

@@ -1,5 +1,6 @@
 package pro.appcraft.lib.utils.common
 
+import android.annotation.SuppressLint
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.ClickableSpan
@@ -44,5 +45,43 @@ private class ClickableSpanNoUnderline(
 
     override fun onClick(widget: View) {
         clickCallback.invoke(url)
+    }
+}
+
+fun TextView?.undo() {
+    this?.onTextContextMenuItem(android.R.id.undo)
+}
+
+fun TextView?.redo() {
+    this?.onTextContextMenuItem(android.R.id.redo)
+}
+
+/**
+* WARNING: This code uses blocked private api.
+* Add implementation 'com.github.ChickenHook:RestrictionBypass:2.2' to gradle.
+* */
+@SuppressLint("SoonBlockedPrivateApi")
+fun TextView?.canUndo(): Boolean {
+    return try {
+        val canUndo = TextView::class.java.getDeclaredMethod("canUndo")
+        canUndo.isAccessible = true
+        canUndo.invoke(this) as? Boolean ?: false
+    } catch (ignored: Exception) {
+        false
+    }
+}
+
+/**
+ * WARNING: This code uses blocked private api.
+ * Add implementation 'com.github.ChickenHook:RestrictionBypass:2.2' to gradle.
+ * */
+@SuppressLint("SoonBlockedPrivateApi")
+fun TextView?.canRedo(): Boolean {
+    return try {
+        val canRedo = TextView::class.java.getDeclaredMethod("canRedo")
+        canRedo.isAccessible = true
+        canRedo.invoke(this) as? Boolean ?: false
+    } catch (ignored: Exception) {
+        false
     }
 }
