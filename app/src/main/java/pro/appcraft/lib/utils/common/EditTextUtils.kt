@@ -5,9 +5,14 @@ import android.os.Build
 import android.text.style.UnderlineSpan
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import java.lang.reflect.Field
 
+/**
+ * Set text and trigger input callbacks only if the text differs from the supplied value
+ * @param value Value to check for equality
+ */
 fun EditText.syncWithValue(value: String?) {
     val notNullValue = value.orEmpty()
     if (notNullValue != text.toString()) {
@@ -15,6 +20,11 @@ fun EditText.syncWithValue(value: String?) {
     }
 }
 
+/**
+ * Set text and trigger input callbacks only if the text differs from the supplied value.
+ * Clear input on null values
+ * @param value Value to check for equality
+ */
 fun EditText.syncWithValue(value: Double?) = value?.let {
     val editTextValue = text.toString().toDoubleOrNull() ?: 0.0
     if (editTextValue != it) {
@@ -26,6 +36,11 @@ fun EditText.syncWithValue(value: Double?) = value?.let {
     }
 }
 
+/**
+ * Set text and trigger input callbacks only if the text differs from the supplied value.
+ * Clear input on null values
+ * @param value Value to check for equality
+ */
 fun EditText.syncWithValue(value: Int?) = value?.let {
     val editTextValue = text.toString().toIntOrNull() ?: 0
     if (editTextValue != it) {
@@ -41,17 +56,13 @@ fun EditText?.removeFocusAndSpan() {
     this?.apply {
         clearFocus()
         postDelayed(
-            {
-                for (span in text.getSpans(0, text.length, UnderlineSpan::class.java)) {
-                    text.removeSpan(span)
-                }
-            },
+            { text.getSpans(0, text.length, UnderlineSpan::class.java).forEach(text::removeSpan) },
             100
         )
     }
 }
 
-fun EditText?.setAccentColor(accentColor: Int, selectionColor: Int? = null) {
+fun EditText?.setAccentColor(@ColorInt accentColor: Int, @ColorInt selectionColor: Int? = null) {
     this?.apply {
         highlightColor = selectionColor ?: accentColor
 
@@ -110,10 +121,23 @@ fun EditText?.setAccentColor(accentColor: Int, selectionColor: Int? = null) {
                 }
             }
 
-            tintFieldDrawableRes(fSelectHandleCenterRes, this, fSelectHandleCenter, editor, accentColor)
+            tintFieldDrawableRes(
+                fSelectHandleCenterRes,
+                this,
+                fSelectHandleCenter,
+                editor,
+                accentColor
+            )
             tintFieldDrawableRes(fSelectHandleLeftRes, this, fSelectHandleLeft, editor, accentColor)
-            tintFieldDrawableRes(fSelectHandleRightRes, this, fSelectHandleRight, editor, accentColor)
+            tintFieldDrawableRes(
+                fSelectHandleRightRes,
+                this,
+                fSelectHandleRight,
+                editor,
+                accentColor
+            )
             tintFieldDrawableRes(fCursorDrawableRes, this, fCursorDrawableRes, this, accentColor)
-        } catch (ignored: Exception) { }
+        } catch (ignored: Exception) {
+        }
     }
 }

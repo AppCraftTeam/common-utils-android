@@ -2,6 +2,7 @@ package pro.appcraft.lib.utils.common
 
 import android.content.Context
 import android.graphics.Point
+import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.WindowManager
@@ -29,9 +30,10 @@ fun Context.getDeviceWidth(): Int = getDeviceSize().x
 fun Context.getDeviceHeight(): Int = getDeviceSize().y
 
 fun Context.getDeviceSize(): Point {
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    val display = windowManager.defaultDisplay
+    val display = if (isApiAtLeast(Build.VERSION_CODES.R))
+        this.display
+    else (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
     val size = Point()
-    display.getSize(size)
+    display?.getSize(size)
     return size
 }

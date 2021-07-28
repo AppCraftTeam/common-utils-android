@@ -22,11 +22,12 @@ fun View.addSystemWindowInsetToPadding(
     )
 
     ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+        val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
         view.updatePadding(
-            left = initialLeft + (if (left) insets.systemWindowInsetLeft.coerceAtLeast(0) else 0),
-            top = initialTop + (if (top) insets.systemWindowInsetTop.coerceAtLeast(0) else 0),
-            right = initialRight + (if (right) insets.systemWindowInsetRight.coerceAtLeast(0) else 0),
-            bottom = initialBottom + (if (bottom) insets.systemWindowInsetBottom.coerceAtLeast(0) else 0)
+            left = initialLeft + (if (left) systemInsets.left.coerceAtLeast(0) else 0),
+            top = initialTop + (if (top) systemInsets.top.coerceAtLeast(0) else 0),
+            right = initialRight + (if (right) systemInsets.right.coerceAtLeast(0) else 0),
+            bottom = initialBottom + (if (bottom) systemInsets.bottom.coerceAtLeast(0) else 0)
         )
 
         insets
@@ -51,13 +52,14 @@ fun View.addSystemWindowInsetToMargin(
     )
 
     ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+        val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
         view.updateLayoutParams {
             (this as? ViewGroup.MarginLayoutParams)?.let {
                 updateMargins(
-                    left = initialLeft + (if (left) insets.systemWindowInsetLeft.coerceAtLeast(0) else 0),
-                    top = initialTop + (if (top) insets.systemWindowInsetTop.coerceAtLeast(0) else 0),
-                    right = initialRight + (if (right) insets.systemWindowInsetRight.coerceAtLeast(0) else 0),
-                    bottom = initialBottom + (if (bottom) insets.systemWindowInsetBottom.coerceAtLeast(0) else 0)
+                    left = initialLeft + (if (left) systemInsets.left.coerceAtLeast(0) else 0),
+                    top = initialTop + (if (top) systemInsets.top.coerceAtLeast(0) else 0),
+                    right = initialRight + (if (right) systemInsets.right.coerceAtLeast(0) else 0),
+                    bottom = initialBottom + (if (bottom) systemInsets.bottom.coerceAtLeast(0) else 0)
                 )
             }
         }

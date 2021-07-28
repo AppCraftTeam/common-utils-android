@@ -5,6 +5,7 @@ import android.media.MediaMetadataRetriever
 import android.net.Uri
 import java.io.File
 
+@Deprecated("To be removed. Use per-app extension methods")
 fun Context.getVideoFileDuration(file: File): Long? = try {
     val retriever = MediaMetadataRetriever()
     retriever.setDataSource(this, Uri.fromFile(file))
