@@ -22,7 +22,9 @@ fun View.addSystemWindowInsetToPadding(
     )
 
     ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
-        val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        val systemInsets =
+            insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+
         view.updatePadding(
             left = initialLeft + (if (left) systemInsets.left.coerceAtLeast(0) else 0),
             top = initialTop + (if (top) systemInsets.top.coerceAtLeast(0) else 0),
@@ -52,7 +54,9 @@ fun View.addSystemWindowInsetToMargin(
     )
 
     ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
-        val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        val systemInsets =
+            insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())
+
         view.updateLayoutParams {
             (this as? ViewGroup.MarginLayoutParams)?.let {
                 updateMargins(
