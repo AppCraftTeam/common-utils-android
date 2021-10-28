@@ -1,6 +1,7 @@
 package pro.appcraft.lib.utils.common
 
 import android.app.Activity
+import android.content.Context
 import android.content.res.ColorStateList
 import android.util.TypedValue
 import android.view.View
@@ -17,7 +18,7 @@ import androidx.fragment.app.Fragment
  * @param colorAttr Color attribute reference (R.attr.colorPrimary)
  */
 @ColorInt
-fun Activity.getColorAttribute(@AttrRes colorAttr: Int): Int {
+fun Context.getColorAttribute(@AttrRes colorAttr: Int): Int {
     val typedValue = TypedValue()
     theme.resolveAttribute(colorAttr, typedValue, true)
     return ContextCompat.getColor(this, typedValue.resourceId)
@@ -27,7 +28,7 @@ fun Activity.getColorAttribute(@AttrRes colorAttr: Int): Int {
  * Get ColorStateList from a themed attribute value
  * @param colorAttr Color attribute reference (R.attr.colorPrimary)
  */
-fun Activity.getTintAttribute(@AttrRes colorAttr: Int): ColorStateList {
+fun Context.getTintAttribute(@AttrRes colorAttr: Int): ColorStateList {
     val typedValue = TypedValue()
     theme.resolveAttribute(colorAttr, typedValue, true)
     return ContextCompat.getColorStateList(this, typedValue.resourceId)!!
@@ -39,14 +40,14 @@ fun Activity.getTintAttribute(@AttrRes colorAttr: Int): ColorStateList {
  */
 @ColorInt
 fun Fragment.getColorAttribute(@AttrRes colorAttr: Int): Int =
-    requireActivity().getColorAttribute(colorAttr)
+    requireContext().getColorAttribute(colorAttr)
 
 /**
  * Get ColorStateList from a themed attribute value
  * @see Activity.getTintAttribute
  */
 fun Fragment.getTintAttribute(@AttrRes colorAttr: Int): ColorStateList =
-    requireActivity().getTintAttribute(colorAttr)
+    requireContext().getTintAttribute(colorAttr)
 
 /**
  * Set backgroundTintList based on the color resource value
