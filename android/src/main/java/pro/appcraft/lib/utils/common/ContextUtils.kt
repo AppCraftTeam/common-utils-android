@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.WindowManager
+import java.util.*
 
 fun Context.convertDpToPx(value: Float): Float = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_DIP,
@@ -37,3 +38,8 @@ fun Context.getDeviceSize(): Point {
     display?.getSize(size)
     return size
 }
+
+@Suppress("DEPRECATION")
+fun Context.appLocale(): Locale = if (isApiAtLeast(Build.VERSION_CODES.N))
+    resources.configuration.locales[0]
+else resources.configuration.locale

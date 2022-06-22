@@ -57,12 +57,6 @@ fun View.setBackgroundTintRes(@ColorRes res: Int) {
     context?.also { backgroundTintList = ContextCompat.getColorStateList(it, res) }
 }
 
-@Deprecated(
-    message = "Use setBackgroundTintRes",
-    replaceWith = ReplaceWith("setBackgroundTintRes(res)")
-)
-fun View.setBackgroundTintList(@ColorRes res: Int) = setBackgroundTintRes(res)
-
 /**
  * Set imageTintList based on the color resource value
  * @param res Tint color resource
@@ -70,12 +64,6 @@ fun View.setBackgroundTintList(@ColorRes res: Int) = setBackgroundTintRes(res)
 fun ImageView.setImageTintRes(@ColorRes res: Int) {
     context?.also { imageTintList = ContextCompat.getColorStateList(it, res) }
 }
-
-@Deprecated(
-    message = "Use setImageTintRes",
-    replaceWith = ReplaceWith("setImageTintRes(res)")
-)
-fun ImageView.setImageTintList(@ColorRes res: Int) = setImageTintRes(res)
 
 /**
  * Set text color based on the color resource value
